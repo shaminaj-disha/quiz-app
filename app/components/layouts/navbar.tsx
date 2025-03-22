@@ -61,8 +61,8 @@ export function Navbar() {
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-sm text-gray-600 flex items-center gap-1">
-            <CircleUser className="h-5 w-5 mr-1" />
-            Logged in as{" "}
+            <CircleUser className="h-6 w-6 mr-1" />
+            {/* Logged in as*/}
             <span className="font-medium capitalize">{user.username}</span>{" "}
             <span className="capitalize">({user.role})</span>
           </span>
@@ -92,8 +92,8 @@ export function Navbar() {
             </SheetHeader>
             <div className="grid gap-4 py-4 px-4">
               <span className="text-md sm:text-lg text-gray-600 flex items-center gap-1 py-2 flex-wrap">
-                <CircleUser className="h-5 w-5 mr-1" />
-                Logged in as{" "}
+                <CircleUser className="h-6 w-6 mr-1" />
+                {/* Logged in as */}
                 <span className="font-medium capitalize">
                   {user.username}
                 </span>{" "}
