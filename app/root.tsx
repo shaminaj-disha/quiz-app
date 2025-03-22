@@ -12,9 +12,9 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { AuthProvider, useAuth } from "./lib/auth-context";
 import { useEffect } from "react";
-import { Navbar } from "./components/layouts/navbar";
+import { Navbar } from "./layouts/navbar";
 import { Toaster } from "sonner";
-import { Footer } from "./components/layouts/footer";
+import { Footer } from "./layouts/footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },

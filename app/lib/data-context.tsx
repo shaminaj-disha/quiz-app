@@ -75,20 +75,37 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     // Load data from localStorage or use initial data
     const storedQuestions = localStorage.getItem("quizAppQuestions");
     const storedAnswers = localStorage.getItem("quizAppAnswers");
+    const storedNoQuestionState = localStorage.getItem("noQuestions");
 
     setQuestions(
-      storedQuestions ? JSON.parse(storedQuestions) : INITIAL_QUESTIONS
+      storedQuestions
+        ? JSON.parse(storedQuestions)
+        : storedNoQuestionState
+        ? []
+        : INITIAL_QUESTIONS
     );
-    setAnswers(storedAnswers ? JSON.parse(storedAnswers) : INITIAL_ANSWERS);
+    setAnswers(
+      storedAnswers
+        ? JSON.parse(storedAnswers)
+        : storedNoQuestionState
+        ? []
+        : INITIAL_ANSWERS
+    );
   }, []);
 
   // Save to localStorage whenever data changes
   useEffect(() => {
+    const storedNoQuestionState = localStorage.getItem("noQuestions");
     if (questions.length > 0) {
       localStorage.setItem("quizAppQuestions", JSON.stringify(questions));
+      localStorage.setItem("noQuestions", JSON.stringify(false));
+    } else if (storedNoQuestionState === "true") {
+      localStorage.removeItem("quizAppQuestions");
     }
     if (answers.length > 0) {
       localStorage.setItem("quizAppAnswers", JSON.stringify(answers));
+    } else if (storedNoQuestionState === "true") {
+      localStorage.removeItem("quizAppAnswers");
     }
   }, [questions, answers]);
 
@@ -111,9 +128,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   };
 
   const deleteQuestion = (id: string) => {
-    setQuestions(questions.filter((q) => q.id !== id));
+    const filteredQuestions = questions?.filter((ques) => ques.id !== id);
+    const filteredAnswers = answers.filter((ans) => ans.questionId !== id);
+    setQuestions(filteredQuestions);
     // Also delete associated answers
-    setAnswers(answers.filter((a) => a.questionId !== id));
+    setAnswers(filteredAnswers);
+    if (filteredQuestions?.length === 0) {
+      localStorage.setItem("noQuestions", JSON.stringify(true));
+    }
   };
 
   const addAnswer = (questionId: string, userId: string, text: string) => {

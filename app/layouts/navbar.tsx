@@ -11,10 +11,23 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "~/components/ui/sheet";
+import { useEffect, useState } from "react";
 
 export function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsSheetOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -78,7 +91,7 @@ export function Navbar() {
 
       {/* Small Screens: Menu Button */}
       <div className="lg:hidden">
-        <Sheet>
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
               <EllipsisVertical className="h-6 w-6" />

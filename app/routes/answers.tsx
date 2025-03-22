@@ -1,5 +1,5 @@
 import type { Route } from "./+types/home";
-import AnswersPage from "~/components/pages/answers/answers-main";
+import AnswersPage from "~/components/answers/answers-main";
 
 export function meta({}: Route.MetaArgs) {
   return [

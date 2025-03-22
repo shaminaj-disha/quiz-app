@@ -75,12 +75,13 @@ export function QuestionItem({
           // User view - answer the question
           <div>
             {isEditing ? (
-              <div className="space-y-3">
+              <form onSubmit={handleSubmit} className="space-y-3">
                 <Textarea
                   value={answerText}
                   onChange={(e) => setAnswerText(e.target.value)}
                   placeholder="Type your answer here..."
                   rows={4}
+                  required
                 />
                 <div className="flex justify-end gap-2">
                   <Button
@@ -90,11 +91,11 @@ export function QuestionItem({
                   >
                     Cancel
                   </Button>
-                  <Button className="cursor-pointer" onClick={handleSubmit}>
+                  <Button type="submit" className="cursor-pointer">
                     {userAnswer ? "Update Answer" : "Submit Answer"}
                   </Button>
                 </div>
-              </div>
+              </form>
             ) : (
               <div>
                 {userAnswer ? (

@@ -28,14 +28,20 @@ export default function SignInPage() {
     try {
       const success = await login(username, password);
       if (success) {
-        toast.success("Login successful");
+        toast.success("Login successful", {
+          description: "You have been logged in successfully.",
+        });
         setUsername("");
         setPassword("");
       } else {
-        toast.error("Login failed");
+        toast.error("Login failed", {
+          description: "Invalid username or password.",
+        });
       }
     } catch (error) {
-      toast.error("Login error");
+      toast.error("Login Error", {
+        description: "An error occurred during login.",
+      });
     } finally {
       setIsLoading(false);
     }

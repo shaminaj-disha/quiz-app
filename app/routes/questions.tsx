@@ -1,4 +1,4 @@
-import QuestionsPage from "~/components/pages/questions/questions-main";
+import QuestionsPage from "~/components/questions/questions-main";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {

@@ -20,9 +20,18 @@ export function AnswersContent() {
   const handleAnswerSubmit = (questionId: string, text: string) => {
     if (user) {
       addAnswer(questionId, user.id, text);
-      toast.success("Answer submitted");
+      toast.success("Answer submitted", {
+        description: "Your answer has been saved successfully.",
+      });
     }
   };
+
+  const answeredQuestions = questions.filter((q) =>
+    answers.some((a) => a.questionId === q.id)
+  );
+  const unansweredQuestions = questions.filter(
+    (q) => !answers.some((a) => a.questionId === q.id)
+  );
 
   return (
     <div className="container mx-auto py-6 max-w-4xl">
@@ -52,41 +61,59 @@ export function AnswersContent() {
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="all">
-                {questions.map((question) => (
-                  <QuestionItem
-                    key={question.id}
-                    question={question}
-                    userAnswers={userAnswers}
-                    isAdmin={isAdmin}
-                    onAnswerSubmit={handleAnswerSubmit}
-                  />
-                ))}
+                {questions.length > 0 ? (
+                  questions.map((question) => (
+                    <QuestionItem
+                      key={question.id}
+                      question={question}
+                      userAnswers={userAnswers}
+                      isAdmin={isAdmin}
+                      onAnswerSubmit={handleAnswerSubmit}
+                    />
+                  ))
+                ) : (
+                  <p className="text-center text-gray-500 py-4">
+                    No questions available.
+                  </p>
+                )}
               </TabsContent>
               <TabsContent value="answered">
-                {questions
-                  .filter((q) => answers.some((a) => a.questionId === q.id))
-                  .map((question) => (
-                    <QuestionItem
-                      key={question.id}
-                      question={question}
-                      userAnswers={userAnswers}
-                      isAdmin={isAdmin}
-                      onAnswerSubmit={handleAnswerSubmit}
-                    />
-                  ))}
+                {answeredQuestions.length > 0 ? (
+                  answeredQuestions
+                    .filter((q) => answers.some((a) => a.questionId === q.id))
+                    .map((question) => (
+                      <QuestionItem
+                        key={question.id}
+                        question={question}
+                        userAnswers={userAnswers}
+                        isAdmin={isAdmin}
+                        onAnswerSubmit={handleAnswerSubmit}
+                      />
+                    ))
+                ) : (
+                  <p className="text-center text-gray-500 py-4">
+                    No answered questions available.
+                  </p>
+                )}
               </TabsContent>
               <TabsContent value="unanswered">
-                {questions
-                  .filter((q) => !answers.some((a) => a.questionId === q.id))
-                  .map((question) => (
-                    <QuestionItem
-                      key={question.id}
-                      question={question}
-                      userAnswers={userAnswers}
-                      isAdmin={isAdmin}
-                      onAnswerSubmit={handleAnswerSubmit}
-                    />
-                  ))}
+                {unansweredQuestions.length > 0 ? (
+                  unansweredQuestions
+                    .filter((q) => !answers.some((a) => a.questionId === q.id))
+                    .map((question) => (
+                      <QuestionItem
+                        key={question.id}
+                        question={question}
+                        userAnswers={userAnswers}
+                        isAdmin={isAdmin}
+                        onAnswerSubmit={handleAnswerSubmit}
+                      />
+                    ))
+                ) : (
+                  <p className="text-center text-gray-500 py-4">
+                    No unanswered questions available.
+                  </p>
+                )}
               </TabsContent>
             </Tabs>
           ) : (

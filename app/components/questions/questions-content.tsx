@@ -18,7 +18,9 @@ export function QuestionsContent() {
     if (newQuestion.trim()) {
       addQuestion(newQuestion.trim());
       setNewQuestion("");
-      toast.success("Question added");
+      toast.success("Question added", {
+        description: "Your question has been added successfully.",
+      });
     }
   };
 
@@ -31,7 +33,9 @@ export function QuestionsContent() {
     if (editText.trim()) {
       updateQuestion(id, editText.trim());
       setEditingId(null);
-      toast.success("Question updated");
+      toast.success("Question updated", {
+        description: "Your question has been updated successfully.",
+      });
     }
   };
 
@@ -42,7 +46,9 @@ export function QuestionsContent() {
       )
     ) {
       deleteQuestion(id);
-      toast.success("Question deleted");
+      toast.success("Question deleted", {
+        description: "The question has been deleted successfully.",
+      });
     }
   };
 
@@ -62,6 +68,7 @@ export function QuestionsContent() {
               onChange={(e) => setNewQuestion(e.target.value)}
               placeholder="Enter a new question"
               className="flex-1 min-h-9"
+              required
             />
             <Button type="submit" className="cursor-pointer">
               <Plus className="h-4 w-4 mr-2" />
@@ -78,16 +85,21 @@ export function QuestionsContent() {
               questions.map((question) => (
                 <Card key={question.id} className="p-4">
                   {editingId === question.id ? (
-                    <div className="flex gap-2 flex-col sm:flex-row">
+                    <form
+                      onSubmit={() => handleEditSave(question.id)}
+                      className="flex gap-2 flex-col sm:flex-row"
+                    >
                       <Input
                         value={editText}
                         onChange={(e) => setEditText(e.target.value)}
                         className="flex-1"
+                        required
                       />
                       <div className="flex gap-2">
                         <Button
+                          type="submit"
                           className="cursor-pointer"
-                          onClick={() => handleEditSave(question.id)}
+                          // onClick={() => handleEditSave(question.id)}
                         >
                           Save
                         </Button>
@@ -99,7 +111,7 @@ export function QuestionsContent() {
                           Cancel
                         </Button>
                       </div>
-                    </div>
+                    </form>
                   ) : (
                     <div className="flex items-center justify-between">
                       <div className="flex flex-col gap-1">
