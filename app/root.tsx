@@ -5,10 +5,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigate,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { AuthProvider, useAuth } from "./lib/auth-context";
+import { useEffect } from "react";
+import { Navbar } from "./components/layouts/navbar";
+import { Toaster } from "sonner";
+import { Footer } from "./components/layouts/footer";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,7 +39,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -42,7 +51,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/questions");
+      } else {
+        navigate("/answers");
+      }
+    } else {
+      navigate("/");
+    }
+  }, [user, navigate]);
+  return (
+    <>
+      {user ? <Navbar /> : null}
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

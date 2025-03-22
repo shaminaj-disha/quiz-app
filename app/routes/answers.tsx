@@ -1,13 +1,13 @@
 import type { Route } from "./+types/home";
-import SignInPage from "~/components/pages/signin/signin-main";
+import AnswersPage from "~/components/pages/answers/answers-main";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Quiz App" },
+    { title: "Answers" },
     { name: "description", content: "Welcome to Qiz App!" },
   ];
 }
 
-export default function Home() {
-  return <SignInPage />;
+export default function Answers() {
+  return <AnswersPage />;
 }
