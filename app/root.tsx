@@ -76,7 +76,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="min-h-screen container flex flex-col gap-2 justify-center items-center text-primary p-4">
+    <main className="min-h-screen container flex flex-col gap-2 justify-center items-center text-primary p-4 mx-auto">
       <img width={270} src="/images/broken-page.png" alt="Not Found" />
       <h1 className="text-4xl text-center">{message}</h1>
       <p className=" text-center">{details}</p>
