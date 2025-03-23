@@ -102,7 +102,7 @@ export function QuestionItem({
                   <div className="space-y-3">
                     <div className="flex justify-between items-start flex-wrap-reverse gap-4">
                       <p className="font-medium">Your Answer:</p>
-                      <div className="flex gap-2">
+                      <div className="flex flex-wrap gap-2">
                         <AnswerHistory answer={userAnswer} />
                         <Button
                           className="cursor-pointer"

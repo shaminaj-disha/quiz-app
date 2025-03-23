@@ -49,7 +49,7 @@ export function AnswersContent() {
         <CardContent>
           {isAdmin ? (
             <Tabs defaultValue="all">
-              <TabsList className="mb-4">
+              <TabsList className="mb-4 flex flex-wrap justify-center gap-2 sm:justify-start h-full">
                 <TabsTrigger className="cursor-pointer" value="all">
                   All Questions
                 </TabsTrigger>
@@ -60,7 +60,7 @@ export function AnswersContent() {
                   Without Answers
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="all">
+              <TabsContent value="all" className="mt-6 sm:mt-0">
                 {questions.length > 0 ? (
                   questions.map((question) => (
                     <QuestionItem
