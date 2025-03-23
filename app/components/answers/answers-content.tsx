@@ -60,7 +60,7 @@ export function AnswersContent() {
                   Without Answers
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="all" className="mt-6 sm:mt-0">
+              <TabsContent value="all">
                 {questions.length > 0 ? (
                   questions.map((question) => (
                     <QuestionItem
