@@ -1,6 +1,6 @@
 import type React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "~/lib/auth-context";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -14,12 +14,27 @@ import {
 } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
+import { Spinner } from "~/layouts/spinner";
 
 export default function SignInMain() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user, isLoading: authLoading } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authLoading) {
+      if (user) {
+        if (user.role === "admin") {
+          navigate("/questions");
+        } else {
+          navigate("/answers");
+        }
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,6 +61,15 @@ export default function SignInMain() {
       setIsLoading(false);
     }
   };
+
+  if (authLoading || user)
+    return (
+      <div className="min-h-[calc(100vh-40px)] flex items-center justify-center">
+        <span className="animate-spin">
+          <Spinner />
+        </span>
+      </div>
+    );
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-40px)] bg-gray-50 p-4">

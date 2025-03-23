@@ -3,6 +3,7 @@ import { useAuth } from "~/lib/auth-context";
 import { DataProvider } from "~/lib/data-context";
 import { useNavigate } from "react-router";
 import { AnswersContent } from "./answers-content";
+import { Spinner } from "~/layouts/spinner";
 
 export default function AnswersMain() {
   const { user } = useAuth();
@@ -16,7 +17,13 @@ export default function AnswersMain() {
   }, [user, navigate]);
 
   if (!user) {
-    return null;
+    return (
+      <div className="min-h-[calc(100vh-40px)] flex items-center justify-center">
+        <span className="animate-spin">
+          <Spinner />
+        </span>
+      </div>
+    );
   }
 
   return (

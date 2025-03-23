@@ -26,11 +26,11 @@ export function AnswersContent() {
     }
   };
 
-  const answeredQuestions = questions.filter((q) =>
-    answers.some((a) => a.questionId === q.id)
+  const answeredQuestions = questions.filter((ques) =>
+    answers.some((ans) => ans.questionId === ques.id)
   );
   const unansweredQuestions = questions.filter(
-    (q) => !answers.some((a) => a.questionId === q.id)
+    (ques) => !answers.some((ans) => ans.questionId === ques.id)
   );
 
   return (
@@ -80,7 +80,9 @@ export function AnswersContent() {
               <TabsContent value="answered">
                 {answeredQuestions.length > 0 ? (
                   answeredQuestions
-                    .filter((q) => answers.some((a) => a.questionId === q.id))
+                    .filter((ques) =>
+                      answers.some((ans) => ans.questionId === ques.id)
+                    )
                     .map((question) => (
                       <QuestionItem
                         key={question.id}
@@ -99,7 +101,10 @@ export function AnswersContent() {
               <TabsContent value="unanswered">
                 {unansweredQuestions.length > 0 ? (
                   unansweredQuestions
-                    .filter((q) => !answers.some((a) => a.questionId === q.id))
+                    .filter(
+                      (ques) =>
+                        !answers.some((ans) => ans.questionId === ques.id)
+                    )
                     .map((question) => (
                       <QuestionItem
                         key={question.id}

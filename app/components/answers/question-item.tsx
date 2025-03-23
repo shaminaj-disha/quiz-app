@@ -27,7 +27,7 @@ export function QuestionItem({
   const [answerText, setAnswerText] = useState("");
   const { getQuestionAnswers } = useData();
   const allAnswers = getQuestionAnswers(question.id);
-  const userAnswer = userAnswers.find((a) => a.questionId === question.id);
+  const userAnswer = userAnswers.find((ans) => ans.questionId === question.id);
 
   useEffect(() => {
     if (userAnswer) {

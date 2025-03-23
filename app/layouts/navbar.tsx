@@ -18,6 +18,7 @@ export function Navbar() {
   const navigate = useNavigate();
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
+  // Close the Sheet when the screen size is larger
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
