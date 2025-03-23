@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useAuth } from "~/lib/auth-context";
 import { DataProvider } from "~/lib/data-context";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { QuestionsContent } from "./questions-content";
 import { Spinner } from "~/layouts/spinner";
 
 export default function QuestionsMain() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Redirect if not logged in or not an admin
@@ -15,6 +16,12 @@ export default function QuestionsMain() {
       navigate("/");
     } else if (user.role !== "admin") {
       navigate("/answers");
+    } else {
+      if (location.pathname === "/answers") {
+        navigate("/answers");
+      } else {
+        navigate("/questions");
+      }
     }
   }, [user, navigate]);
 

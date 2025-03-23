@@ -76,11 +76,24 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="p-4 container mx-auto flex justify-center items-center flex-col gap-2 min-h-screen">
-      <h1 className="text-4xl">{message}</h1>
-      <p>{details}</p>
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+        justifyContent: "center",
+        alignItems: "center",
+        alignContent: "center",
+        padding: 16,
+        color: "#2e2e2e",
+      }}
+    >
+      <img src="/images/broken-page.png" alt="Not Found" />
+      <h1 style={{ fontSize: 34, fontWeight: 700 }}>{message}</h1>
+      <p style={{ fontSize: 12 }}>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full p-4 overflow-x-auto mx-auto">
           <code>{stack}</code>
         </pre>
       )}

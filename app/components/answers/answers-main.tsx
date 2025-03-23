@@ -1,18 +1,25 @@
 import { useEffect } from "react";
 import { useAuth } from "~/lib/auth-context";
 import { DataProvider } from "~/lib/data-context";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { AnswersContent } from "./answers-content";
 import { Spinner } from "~/layouts/spinner";
 
 export default function AnswersMain() {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Redirect if not logged in
     if (!user) {
       navigate("/");
+    } else {
+      if (location.pathname === "/answers") {
+        navigate("/answers");
+      } else if (user.role === "admin") {
+        navigate("/questions");
+      }
     }
   }, [user, navigate]);
 

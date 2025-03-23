@@ -14,7 +14,7 @@ import {
 } from "~/components/ui/card";
 import { Label } from "~/components/ui/label";
 import { toast } from "sonner";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { Spinner } from "~/layouts/spinner";
 
 export default function SignInMain() {
@@ -23,12 +23,17 @@ export default function SignInMain() {
   const [isLoading, setIsLoading] = useState(false);
   const { login, user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!authLoading) {
       if (user) {
         if (user.role === "admin") {
-          navigate("/questions");
+          if (location.pathname === "/answers") {
+            navigate("/answers");
+          } else {
+            navigate("/questions");
+          }
         } else {
           navigate("/answers");
         }
