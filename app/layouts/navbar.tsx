@@ -38,7 +38,7 @@ export function Navbar() {
 
   return (
     <nav className="bg-white border-b px-4 py-2 flex items-center justify-between z-50 sticky top-0 left-0 w-full min-h-[80px]">
-      {/* Left Section - Logo */}
+      {/* Small Screens: Left Section - Logo */}
       <div className="lg:hidden flex items-center">
         <img width={150} src="/images/quiz-app-logo.png" alt="Logo" />
       </div>

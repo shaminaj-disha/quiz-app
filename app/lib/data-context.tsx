@@ -121,8 +121,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
   const updateQuestion = (id: string, text: string) => {
     setQuestions(
-      questions.map((q) =>
-        q.id === id ? { ...q, text, updatedAt: new Date().toISOString() } : q
+      questions.map((ques) =>
+        ques.id === id
+          ? { ...ques, text, updatedAt: new Date().toISOString() }
+          : ques
       )
     );
   };
@@ -141,7 +143,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const addAnswer = (questionId: string, userId: string, text: string) => {
     // Check if user already answered this question
     const existingAnswer = answers.find(
-      (a) => a.questionId === questionId && a.userId === userId
+      (ans) => ans.questionId === questionId && ans.userId === userId
     );
 
     if (existingAnswer) {
@@ -168,13 +170,13 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
   const updateAnswer = (id: string, text: string) => {
     setAnswers(
-      answers.map((a) => {
-        if (a.id === id) {
+      answers.map((ans) => {
+        if (ans.id === id) {
           return {
-            ...a,
+            ...ans,
             text,
             history: [
-              ...a.history,
+              ...ans.history,
               {
                 text,
                 timestamp: new Date().toISOString(),
@@ -182,17 +184,17 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             ],
           };
         }
-        return a;
+        return ans;
       })
     );
   };
 
   const getQuestionAnswers = (questionId: string) => {
-    return answers.filter((a) => a.questionId === questionId);
+    return answers.filter((ans) => ans.questionId === questionId);
   };
 
   const getUserAnswers = (userId: string) => {
-    return answers.filter((a) => a.userId === userId);
+    return answers.filter((ans) => ans.userId === userId);
   };
 
   return (

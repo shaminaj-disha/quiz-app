@@ -4,7 +4,7 @@ import { DataProvider } from "~/lib/data-context";
 import { useNavigate } from "react-router";
 import { QuestionsContent } from "./questions-content";
 
-export default function QuestionsPage() {
+export default function QuestionsMain() {
   const { user } = useAuth();
   const navigate = useNavigate();
 

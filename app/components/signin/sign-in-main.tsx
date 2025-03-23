@@ -15,7 +15,7 @@ import {
 import { Label } from "~/components/ui/label";
 import { toast } from "sonner";
 
-export default function SignInPage() {
+export default function SignInMain() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -80,6 +80,7 @@ export default function SignInPage() {
                 required
               />
             </div>
+            {/* Demo credentials*/}
             <div className="text-sm text-gray-500">
               <p>Demo credentials:</p>
               <p>Admin: username: admin, password: admin123</p>

@@ -1,13 +1,13 @@
-import QuestionsPage from "~/components/questions/questions-main";
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/questions";
+import QuestionsMain from "~/components/questions/questions-main";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Questions" },
+    { title: "Quiz App | Questions" },
     { name: "description", content: "Welcome to Qiz App!" },
   ];
 }
 
 export default function Questions() {
-  return <QuestionsPage />;
+  return <QuestionsMain />;
 }

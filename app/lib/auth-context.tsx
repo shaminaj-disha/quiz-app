@@ -51,6 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     if (foundUser) {
+      // Destructure to separate password from other props
       const { password, ...userWithoutPassword } = foundUser;
       setUser(userWithoutPassword);
       localStorage.setItem("quizAppUser", JSON.stringify(userWithoutPassword));

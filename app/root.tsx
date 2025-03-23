@@ -7,13 +7,12 @@ import {
   ScrollRestoration,
   useNavigate,
 } from "react-router";
-
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AuthProvider, useAuth } from "./lib/auth-context";
 import { useEffect } from "react";
-import { Navbar } from "./layouts/navbar";
 import { Toaster } from "sonner";
+import { Navbar } from "./layouts/navbar";
 import { Footer } from "./layouts/footer";
 
 export const links: Route.LinksFunction = () => [
@@ -73,6 +72,7 @@ export default function App() {
   );
 }
 
+// Requested page not found
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
@@ -90,8 +90,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
+    <main className="p-4 container mx-auto flex justify-center items-center flex-col gap-2 min-h-screen">
+      <h1 className="text-4xl">{message}</h1>
       <p>{details}</p>
       {stack && (
         <pre className="w-full p-4 overflow-x-auto">
